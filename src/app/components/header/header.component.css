@@ -1,0 +1,22 @@
+.header {
+	width: auto;
+	background-color: #2B4649;
+  color:  white;
+  font-weight: 550;
+}
+
+.butt {
+  -webkit-transition: background 0.1s ease-in-out;
+  -moz-transition: background 0.1s ease-in-out;
+  -ms-transition: background 0.1s ease-in-out;
+  -o-transition: background 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out;
+  padding:  10px;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+}
+
+.butt:hover {
+  background-color: #3f696d;
+}

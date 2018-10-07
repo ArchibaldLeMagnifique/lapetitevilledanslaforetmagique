@@ -1,0 +1,69 @@
+<div class=main>
+  <wheel [size]=800></wheel>
+
+  <div class=rigthPane>
+    <div *ngIf='activeBuilding'>
+      <div *ngIf="activeBuilding.building.building.type == 'buildable';else elseBlock">
+
+        <div class="title">
+          <div class="backButton" (click)='unsetActiveBuilding()'><</div>
+          <div class="titleName">Choose a building</div>
+        </div>
+
+        <div *ngFor="let item of buildableList; let i = index">
+          <div class="item buildingButton" (click)='build(i)'>
+            <div class=itemDesc>
+              <div class="itemTitle" [style.border-left]="'8px solid '+item.color">{{item.name}}</div>
+              <div>cost : {{item.cost}}</div>
+              <div>time : {{item.time/1000}} s</div>
+            </div>
+            <div class="itemBuildButton" (click)="void(); $event.stopPropagation();">More Info</div>
+          </div>
+          <div *ngIf="i!=buildableList.length-1" class="itemSeparator"></div>
+        </div>
+      </div>
+
+      <ng-template #elseBlock>
+        <div class="title">
+          <div class="backButton" (click)='unsetActiveBuilding()'><</div>
+          <div class="titleName">{{activeBuilding.building.building.name}}</div>
+        </div>
+
+        <div *ngIf="activeBuilding.building.building.startTime;else elseBlock" class="description">
+          <div class="item">
+            <div class="leftText">
+              {{this.gameService.timeToDate(activeBuilding.building.building.startTime + activeBuilding.building.building.time - activeBuilding.building.building.nowTime)}}
+            </div>
+            {{this.Math.floor((activeBuilding.building.building.nowTime-activeBuilding.building.building.startTime)/activeBuilding.building.building.time*100)}}%
+          </div>
+
+          <div class="item">
+            <div class=progressBarBack>
+              <div class="progressBar"[style.width]="sanitizer.bypassSecurityTrustStyle('calc(' + (activeBuilding.building.building.nowTime-activeBuilding.building.building.startTime)/activeBuilding.building.building.time*100 + '%)')">
+              </div>
+              <div class=progressBarRight [style.background-color]="activeBuilding.building.building.color"></div>
+            </div>
+          </div>
+
+          <div class="cancelButton" (click)="cancelBuilding()">
+            Cancel
+          </div>
+          
+        </div>
+
+        <ng-template #elseBlock>
+          <div class="description">
+            <div class="cancelButton" (click)="cancelBuilding()">
+              Destroy Building
+            </div>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<div class="main">
+  <div class="botPane">
+    salut
+  </div>
+</div>
